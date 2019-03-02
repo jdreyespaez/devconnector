@@ -47,4 +47,31 @@ router.post("/register", (req, res) => {
   });
 });
 
+// @route   GET api/users/register
+// @desc   	Login User and returning JWT token
+// @access  Private
+router.post("/login", (req, res) => {
+  // It will send a form in req.body
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Find user by email
+  User.findOne({ email: email }).then(user => {
+    // Check for user
+    if (!user) {
+      return res.status(404).json({ email: "User not found" });
+    }
+
+    // Check password, the pass coming from the form is plain
+    // text, but on the DB is the hashed one
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        res.json({ msg: "Success" });
+      } else {
+        return res.status(400).json({ password: "Password incorrect" });
+      }
+    });
+  });
+});
+
 module.exports = router;
