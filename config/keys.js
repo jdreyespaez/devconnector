@@ -10,5 +10,6 @@ client.connect(err => {
 
 module.exports = {
   uri:
-    "mongodb+srv://juan:juan@devconnector-liyrv.mongodb.net/test?retryWrites=true"
+    "mongodb+srv://juan:juan@devconnector-liyrv.mongodb.net/test?retryWrites=true",
+  secretOrKey: "onconexus"
 };
